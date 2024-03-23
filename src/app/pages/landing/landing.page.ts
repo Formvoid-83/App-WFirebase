@@ -2,17 +2,23 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+import {RouterModule} from '@angular/router';
+import { addCircle } from 'ionicons/icons';
+import { addIcons } from 'ionicons';
+
 
 @Component({
   selector: 'app-landing',
   templateUrl: './landing.page.html',
   styleUrls: ['./landing.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule]
+  imports: [IonicModule, CommonModule, FormsModule, RouterModule]
 })
 export class LandingPage implements OnInit {
 
-  constructor() { }
+  constructor() {
+    addIcons({addCircle});
+   }
 
   ngOnInit() {
   }
