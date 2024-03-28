@@ -5,20 +5,46 @@
     </ion-title>
     <p class="subTitle">Sign in to access brah</p>
   </div>
-  <form>
+  <form [formGroup]="regForm">
     <div class="ion-padding">
       <ion-item>
-        <ion-input class="input" placeholder="input"></ion-input>
+        <ion-input formControlName="fullname" class="input" placeholder="input"></ion-input>
         <ion-icon  class="icon" name="person-outline"></ion-icon>
       </ion-item>
+      <div *ngIf="this.regForm?.controls?.['fullname'].touched && this.regForm?.controls?.['fullname'].invalid">
+        <ion-text *ngIf="errorControl.fullname.errors?.required">
+          Full name is required
+        </ion-text>
+      </div>
+
       <ion-item>
-        <ion-input class="input" placeholder="email"></ion-input>
+        <ion-input class="input" formControlName="email" placeholder="email"></ion-input>
         <ion-icon class="icon"  name="person-outline"></ion-icon>
       </ion-item>
+      <div *ngIf="this.regForm?.controls?.['email'].touched && this.regForm?.controls?.['email'].invalid">
+        <ion-text *ngIf="errorControl.email.errors?.required">
+          Email is required
+        </ion-text>
+        <ion-text *ngIf="errorControl.email.errors?.pattern">
+          Email should be valid
+        </ion-text>
+      </div>
       <ion-item>
-        <ion-input class="input" placeholder="password"></ion-input>
+        <ion-input class="input" formControlName="password" placeholder="password"></ion-input>
         <ion-icon class="icon" name="lock-closed-outline"></ion-icon>
       </ion-item>
+      <div *ngIf="this.regForm?.controls?.['password'].touched && this.regForm?.controls?.['password'].invalid">
+        <ion-text *ngIf="errorControl.password.errors?.required">
+          Password is required
+        </ion-text>
+        <ion-text *ngIf="errorControl.password.errors?.pattern">
+          Password must at least have 
+          One character
+          one Capital Letter
+          One number
+          Contain 8 digits
+        </ion-text>
+      </div>
       <div class="signinLink">
         <a [routerLink]="['/reset-password']">Forgot Password?</a>
       </div>
@@ -27,7 +53,7 @@
       </div>
     </div>
     <ion-fab vertical="bottom" horizontal="end" style="margin-bottom: 30px;">
-      <ion-fab-button [routerLink]="['/home']">
+      <ion-fab-button (click) = "signUp()" >
         <ion-icon name="chevron-forward">
         </ion-icon>
       </ion-fab-button>
