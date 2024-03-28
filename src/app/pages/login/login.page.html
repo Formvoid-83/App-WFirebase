@@ -8,7 +8,7 @@
   <form [formGroup]="loginForm">
     <div class="ion-padding">
       <ion-item>
-        <ion-input placeholder="Email" class="input"></ion-input>
+        <ion-input placeholder="Email" class="input" formControlName="email"></ion-input>
         <ion-icon  name="person-outline"></ion-icon>
       </ion-item>
       <div *ngIf="this.loginForm.controls?.['email'].touched && this.loginForm.controls?.['email'].invalid">
@@ -20,7 +20,7 @@
         </ion-text>
       </div>
       <ion-item>
-        <ion-input placeholder="password" class="input"></ion-input>
+        <ion-input placeholder="password" class="input" formControlName="password"></ion-input>
         <ion-icon name="lock-closed-outline"></ion-icon>
       </ion-item>
       <div *ngIf="this.loginForm.controls?.['password'].touched && this.loginForm.controls?.['password'].invalid">
