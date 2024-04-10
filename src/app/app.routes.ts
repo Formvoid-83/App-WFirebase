@@ -26,4 +26,8 @@ export const routes: Routes = [
     path: 'landing',
     loadComponent: () => import('./pages/landing/landing.page').then( m => m.LandingPage)
   },
+  {
+    path: 'square',
+    loadComponent: () => import('../tictac/square/square.component').then( m => m.SquareComponent)
+  },
 ];

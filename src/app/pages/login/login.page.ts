@@ -10,6 +10,7 @@ import { LoadingController } from '@ionic/angular/standalone';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { HttpClientModule } from '@angular/common/http';
+import { SquareComponent } from 'src/tictac/square/square.component';
 
 
 
@@ -19,7 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, HttpClientModule, FormsModule, ReactiveFormsModule, RouterModule, AngularFireModule, AngularFireAuthModule]
+  imports: [IonicModule, CommonModule, HttpClientModule, FormsModule, ReactiveFormsModule, RouterModule, AngularFireModule, AngularFireAuthModule],
 })
 export class LoginPage implements OnInit {
   loginForm : FormGroup;
