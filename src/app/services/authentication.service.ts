@@ -17,7 +17,7 @@ import {
 })
 export class AuthenticationService {
 
-  constructor(public ngFireAuth: AngularFireAuth) { 
+  constructor(private ngFireAuth: AngularFireAuth) {
    }
 
    async registerUser(email: string, password: string){

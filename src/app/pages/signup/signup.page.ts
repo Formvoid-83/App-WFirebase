@@ -8,8 +8,8 @@ import {AngularFireModule} from '@angular/fire/compat';
 import {AngularFireAuth, AngularFireAuthModule} from '@angular/fire/compat/auth';
 import { personOutline, lockClosedOutline, chevronForward } from 'ionicons/icons';
 import { LoadingController } from '@ionic/angular/standalone';
-import { AuthenticationService } from 'src/app/authentication.service';
 import { HttpClientModule } from '@angular/common/http';
+import {AuthenticationService} from "../../services/authentication.service";
 
 @Component({
   selector: 'app-signup',
@@ -19,14 +19,14 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [IonicModule, CommonModule, HttpClientModule, FormsModule, ReactiveFormsModule, RouterModule, AngularFireModule, AngularFireAuthModule]
 })
 export class SignupPage implements OnInit {
-  regForm : FormGroup; 
+  regForm : FormGroup;
   constructor( public formBuilder : FormBuilder, public loadingCtrl: LoadingController, private authService : AuthenticationService, public router : Router) {
-      
-      addIcons({personOutline, lockClosedOutline, chevronForward});  
 
-      
+      addIcons({personOutline, lockClosedOutline, chevronForward});
+
+
    }
-   
+
 
   ngOnInit() {
     this.regForm = this.formBuilder.group({
@@ -51,7 +51,7 @@ export class SignupPage implements OnInit {
   }
 
   async signUp(){
-  
+
     const loading = await this.loadingCtrl.create();
     await loading.present();
     if(this.regForm?.valid){

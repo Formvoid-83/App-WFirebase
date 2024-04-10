@@ -1,4 +1,3 @@
-
 <ion-content [fullscreen]="true">
   <div class="container">
 
@@ -6,10 +5,8 @@
   <ion-img src="assets/icon/bg.png" style="width:25%"/>
   <ion-title> Explore the TUTUTUTU TUTTUTUTUUU</ion-title>
   <ion-fab vertical="bottom" horizontal="end" style="margin-bottom: 30px;">
-    <ion-fab-button [routerLink]="['/login']">
-      <ion-icon name="add-circle">
-
-      </ion-icon>
+    <ion-fab-button (click)="onHomeClick()">
+      <ion-icon name="add-circle"/>
     </ion-fab-button>
   </ion-fab>
   <ion-button>
