@@ -5,6 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import {RouterModule} from '@angular/router';
 import { addCircle } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
+import { NavBarComponent } from 'src/app/nav-bar/nav-bar.component';
 
 
 @Component({
@@ -12,7 +13,7 @@ import { addIcons } from 'ionicons';
   templateUrl: './landing.page.html',
   styleUrls: ['./landing.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, RouterModule]
+  imports: [IonicModule, CommonModule, FormsModule, RouterModule, NavBarComponent]
 })
 export class LandingPage implements OnInit {
 

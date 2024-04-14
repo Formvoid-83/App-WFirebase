@@ -10,7 +10,6 @@ import { LoadingController } from '@ionic/angular/standalone';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { HttpClientModule } from '@angular/common/http';
-import { SquareComponent } from 'src/tictac/square/square.component';
 
 
 
