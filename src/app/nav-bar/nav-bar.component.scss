@@ -35,6 +35,10 @@
   color: blue;
   transition: 0.4s ease-in-out;
 }
+.profile{
+  position: absolute;
+  right: 5rem;
+}
 
 @media screen and (min-width: 128px) and (max-width: 900px) {
   .row{
