@@ -1,5 +1,5 @@
 
-<ion-content [fullscreen]="true">
+<!--<ion-content [fullscreen]="true">-->
   <header>
     <h1 class="title" style="text-align:center">TÍTULO PENDIENTE</h1>
     <div class="logSign">
@@ -9,8 +9,12 @@
   </header>
   <div class="container">
   </div>
-  <app-nav-bar></app-nav-bar>
-  <ion-img class="image" src="assets/icon/home_logo.jpg" style="width:25%"/>
+
+  <app-nav-bar style="position:fixed;"></app-nav-bar>
+
+  <router-outlet></router-outlet>
+
+  <!--<ion-img class="image" src="assets/icon/home_logo.jpg" style="width:25%"/>
   <ion-title> Explore the TUTUTUTU TUTTUTUTUUU</ion-title>
   <ion-fab vertical="bottom" horizontal="end" style="margin-bottom: 30px;">
     <ion-fab-button [routerLink]="['/login']">
@@ -22,4 +26,4 @@
   <ion-button>
     Get started
   </ion-button>
-</ion-content>
+</ion-content>-->

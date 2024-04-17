@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import { personOutline } from 'ionicons/icons';
@@ -12,12 +13,13 @@ import { personOutline } from 'ionicons/icons';
   standalone:true,
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.scss'],
-  imports: [IonicModule, CommonModule, HttpClientModule, FormsModule]
+  imports: [IonicModule, CommonModule, HttpClientModule, FormsModule, RouterModule]
 })
 export class NavBarComponent {
 
   constructor() {
     addIcons({personOutline});
    }
+
 
 }
