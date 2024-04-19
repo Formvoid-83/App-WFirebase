@@ -11,24 +11,38 @@
         <ion-input placeholder="Email" class="input" formControlName="email"></ion-input>
         <ion-icon  name="person-outline"></ion-icon>
       </ion-item>
-      <div *ngIf="this.loginForm.controls?.['email'].touched && this.loginForm.controls?.['email'].invalid">
-        <ion-text *ngIf="errorControl.email.errors?.required">
-          Email is required
-        </ion-text>
-        <ion-text *ngIf="errorControl.email.errors?.pattern">
-          Email should be valid
-        </ion-text>
-      </div>
+      @if (this.loginForm.controls?.['email'].touched && this.loginForm.controls?.['email'].invalid) {
+        <div>
+          @if (errorControl.email.errors?.['required']) {
+            <ion-text>
+              Email is required
+            </ion-text>
+          }
+          @if (errorControl.email.errors?.['pattern']){
+            <ion-text>
+              Email should be valid
+            </ion-text>
+          }
+        </div>
+      }
+     
       <ion-item>
         <ion-input placeholder="password" class="input" formControlName="password"></ion-input>
         <ion-icon name="lock-closed-outline"></ion-icon>
       </ion-item>
-      <div *ngIf="this.loginForm.controls?.['password'].touched && this.loginForm.controls?.['password'].invalid">
-        <ion-text *ngIf="errorControl.password.errors?.required">
-          Password is required
-        </ion-text>
-        <ion-text *ngIf="errorControl.password.errors?.pattern" class="errorInput"  color="danger">Password Must contain at least one character</ion-text>
-      </div>
+      @if (this.loginForm.controls?.['password'].touched && this.loginForm.controls?.['password'].invalid) {
+        <div>
+          @if (errorControl.password.errors?.['required']) {
+            <ion-text>
+              Password is required
+            </ion-text>
+          }
+          @if (errorControl.password.errors?.['pattern']){
+            <ion-text class="errorInput"  color="danger">Password Must contain at least one character</ion-text>
+          }
+        </div>
+      }
+      
       <div class="forgotPassword">
         <a [routerLink]="['/reset-password']" >Forgot Password?</a>
       </div>

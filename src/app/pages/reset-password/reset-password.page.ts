@@ -5,7 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { Router, RouterModule } from '@angular/router';
 import { addIcons } from 'ionicons';
 import { personOutline, lockClosedOutline, chevronForward } from 'ionicons/icons';
-import { AuthenticationService } from 'src/app/authentication.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 @Component({
   selector: 'app-reset-password',
   templateUrl: './reset-password.page.html',

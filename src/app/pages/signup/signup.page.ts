@@ -8,7 +8,7 @@ import {AngularFireModule} from '@angular/fire/compat';
 import {AngularFireAuth, AngularFireAuthModule} from '@angular/fire/compat/auth';
 import { personOutline, lockClosedOutline, chevronForward } from 'ionicons/icons';
 import { LoadingController } from '@ionic/angular/standalone';
-import { AuthenticationService } from 'src/app/authentication.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { HttpClientModule } from '@angular/common/http';
 
 @Component({
