@@ -47,7 +47,7 @@ import { AuthenticationService } from '../../services/authentication.service';
     AngularFireAuthModule,
   ],
 })
-export class LoginPage implements OnInit {
+export class LoginPage{
   #formBuilder = inject(FormBuilder);
 
   readonly loginForm = this.#formBuilder.group({
@@ -72,11 +72,10 @@ export class LoginPage implements OnInit {
     private loadingCtrl: LoadingController,
     private authService: AuthenticationService,
     private router: Router,
+
   ) {
     addIcons({ personOutline, lockClosedOutline, chevronForward });
   }
-
-  ngOnInit() {}
 
   get errorControl() {
     return this.loginForm?.controls;
@@ -94,9 +93,12 @@ export class LoginPage implements OnInit {
           console.log(err);
           loading.dismiss();
         });
+        //To set the userName
+        this.authService.setUserName(this.loginForm.value.email.substring(0,4));
+        //------------------------------------
       if (user) {
         loading.dismiss();
-        void this.router.navigateByUrl(Paths.HOME);
+        void this.router.navigateByUrl(Paths.LANDING);
       } else {
         return console.log('Please provide all the required values!');
       }

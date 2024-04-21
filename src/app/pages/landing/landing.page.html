@@ -1,10 +1,15 @@
 
 <ion-content [fullscreen]="true">
   <header>
-    <h1 class="title" style="text-align:center">TÍTULO PENDIENTE</h1>
+    <h1 class="title">TÍTULO PENDIENTE</h1>
     <div class="logSign">
-      <button [routerLink]="['/login']">Log In</button>
-      <button [routerLink]="['/signup']">Sign Up</button>
+      @if (getUser) {
+        <h2> {{ getUser }}</h2>
+      }
+      @else {
+        <button [routerLink]="['/login']">Log In</button>
+        <button [routerLink]="['/signup']">Sign Up</button>
+      }
     </div>
   </header>
   <div class="container">

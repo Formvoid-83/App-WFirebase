@@ -39,6 +39,19 @@ export class AuthenticationService {
    async getProfile(){
       return await this.ngFireAuth.currentUser;
    }
+
+   //For the name replacement of buttons
+   private  userName;
+
+   setUserName(userName){
+      this.userName = userName;
+      console.log(this.userName);
+   }
+   getUserName(){
+      console.log(this.userName);
+      return this.userName;
+      
+   }
    
 }
 

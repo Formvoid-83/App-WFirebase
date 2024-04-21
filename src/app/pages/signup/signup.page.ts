@@ -61,7 +61,7 @@ export class SignupPage implements OnInit {
       })
       if(user){
         loading.dismiss()
-        this.router.navigate(['/home'])
+        this.router.navigate(['/landing'])
       }
       else{
         console.log('Provide correct value')
