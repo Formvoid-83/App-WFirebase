@@ -1,14 +1,14 @@
 <ion-content [fullscreen]="true">
-  <div class="header">
-    <ion-title class="title">
+  <div class="topAlign">
+    <ion-title>
       Create your account
     </ion-title>
-    <p class="subTitle">Sign in to access brah</p>
+    <p class="subTitle">Create your account to log in</p>
   </div>
   <form [formGroup]="regForm">
     <div class="ion-padding">
       <ion-item>
-        <ion-input formControlName="fullname" class="input" placeholder="input"></ion-input>
+        <ion-input formControlName="fullname" class="input" placeholder="Name"></ion-input>
         <ion-icon  class="icon" name="person-outline"></ion-icon>
       </ion-item>
       @if (this.regForm?.controls?.['fullname'].touched && this.regForm?.controls?.['fullname'].invalid) {
@@ -68,8 +68,8 @@
       <div class="signinLink">
         <a [routerLink]="['/reset-password']">Forgot Password?</a>
       </div>
-      <div>
-        <p>Already a member? <a style="color: #FFC33F" [routerLink]="['/login']">Signin Up Now</a></p>
+      <div class="logInLink">
+        <p>Already a member? <a [routerLink]="['/login']">Signin Up Now</a></p>
       </div>
     </div>
     <ion-fab vertical="bottom" horizontal="end" style="margin-bottom: 30px;">
