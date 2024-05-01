@@ -27,10 +27,8 @@ export class LandingPage {
    get getUser(){
 
     if(this.authService.getUserName() != null &&  this.authService.getUserName() != ""){
-      console.log(this.authService.getUserName());
       return this.authService.getUserName()
     }
-    console.log("SU PTA MADRE, NO SE REFRESCA!");
       return null;
 
    }

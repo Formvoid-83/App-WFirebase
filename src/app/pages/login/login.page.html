@@ -50,12 +50,9 @@
         <p>New member? <a [routerLink]="['/signup']">Sign Up Now</a></p>
       </div>
     </div>
-  
-    <ion-fab vertical="bottom" horizontal="end" style="margin-bottom: 30px;">
-      <ion-fab-button type="submit" (click) = "login()">
-        <ion-icon name="chevron-forward">
-        </ion-icon>
-      </ion-fab-button>
-    </ion-fab>
+    
+    <ion-grid class="loginButton">
+      <button type="submit" (click) = "login()" >Log In</button>
+    </ion-grid>
   </form>
 </ion-content>
