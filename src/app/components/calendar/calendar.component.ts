@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
+import { Calendar} from '@fullcalendar/core';
+
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
@@ -12,6 +14,7 @@ import { IonicModule } from '@ionic/angular';
 })
 export class CalendarComponent  implements OnInit {
 
+  items = [1,2,3];
   constructor() { }
 
   ngOnInit() {}
