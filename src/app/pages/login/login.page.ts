@@ -45,7 +45,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     AngularFireAuthModule,
   ],
 })
-export class LoginPage implements OnInit {
+export class LoginPage {
   #formBuilder = inject(FormBuilder);
   private loading;
 
@@ -70,7 +70,10 @@ export class LoginPage implements OnInit {
   readonly onLogin$ = new Subject<void>();
   private readonly attemptLogin = this.onLogin$.pipe(
     filter(() => this.loginForm.valid),
-    tap(async () => await this.loading?.present()),
+    tap(async () => {
+      this.loading = await this.loadingCtrl.create();
+      await this.loading?.present();
+    }),
     switchMap(() =>
       from(
         this.authService.loginUser(
@@ -107,10 +110,6 @@ export class LoginPage implements OnInit {
         }),
       )
       .subscribe();
-  }
-
-  async ngOnInit() {
-    this.loading = await this.loadingCtrl.create();
   }
 
   get errorControl() {

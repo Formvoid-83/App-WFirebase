@@ -30,6 +30,7 @@
     "@ionic/angular": "^7.5.0",
     "@tinymce/tinymce-angular": "^5.0.0",
     "ionicons": "^7.2.1",
+    "luxon": "^3.4.4",
     "prettier": "^3.2.5",
     "rxjs": "~7.8.0",
     "tinymce": "^7.0.1",
