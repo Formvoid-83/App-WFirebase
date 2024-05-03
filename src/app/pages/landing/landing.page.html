@@ -3,13 +3,13 @@
   <header>
     <h1 class="title">TÍTULO PENDIENTE</h1>
     <div class="logSign">
-      @if (getUser) {
-        <h2> {{ getUser }}</h2>
+      @if (thename ) {
+        <h2> {{ thename}}</h2>
       }
-      @else {
+      <!--@else {-->
         <button [routerLink]="['/login']">Log In</button>
         <button [routerLink]="['/signup']">Sign Up</button>
-      }
+      <!--} -->
     </div>
   </header>
   <div class="container">

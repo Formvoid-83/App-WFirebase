@@ -86,7 +86,7 @@ export class LoginPage{
     await loading.present();
     // console.log(this.email + this.password);
     if (this.loginForm.valid) {
-      //  await  loading.dismiss();
+
       const user = await this.authService
         .logginUser(this.loginForm.value.email, this.loginForm.value.password)
         .catch((err) => {
@@ -94,7 +94,7 @@ export class LoginPage{
           loading.dismiss();
         });
         //To set the userName
-        this.authService.setUserName(this.loginForm.value.email.substring(0,4));
+        //this.authService.setUserName(this.loginForm.value.email.substring(0,4));
         //------------------------------------
       if (user) {
         loading.dismiss();
