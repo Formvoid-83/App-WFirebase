@@ -7,7 +7,6 @@ import {
 import { CommonModule } from '@angular/common';
 import {
   FormBuilder,
-  FormGroup,
   FormsModule,
   ReactiveFormsModule,
   Validators,
@@ -26,9 +25,8 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { HttpClientModule } from '@angular/common/http';
 import { Paths } from '../Paths';
 import { AuthenticationService } from '../../services/authentication.service';
-
-
-
+import { catchError, filter, from, of, Subject, switchMap, tap } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-login',
@@ -47,8 +45,9 @@ import { AuthenticationService } from '../../services/authentication.service';
     AngularFireAuthModule,
   ],
 })
-export class LoginPage{
+export class LoginPage {
   #formBuilder = inject(FormBuilder);
+  private loading;
 
   readonly loginForm = this.#formBuilder.group({
     email: [
@@ -68,13 +67,49 @@ export class LoginPage{
     ],
   });
 
+  readonly onLogin$ = new Subject<void>();
+  private readonly attemptLogin = this.onLogin$.pipe(
+    filter(() => this.loginForm.valid),
+    tap(async () => {
+      this.loading = await this.loadingCtrl.create();
+      await this.loading?.present();
+    }),
+    switchMap(() =>
+      from(
+        this.authService.loginUser(
+          this.loginForm.value.email,
+          this.loginForm.value.password,
+        ),
+      ).pipe(
+        catchError((err) => {
+          this.loading?.dismiss();
+          console.error('Login error: ', err);
+          return of(null);
+        }),
+      ),
+    ),
+  );
+
   constructor(
     private loadingCtrl: LoadingController,
     private authService: AuthenticationService,
     private router: Router,
-
   ) {
     addIcons({ personOutline, lockClosedOutline, chevronForward });
+    this.attemptLogin.pipe(takeUntilDestroyed()).subscribe();
+    this.authService.loggedUser
+      .pipe(
+        takeUntilDestroyed(),
+        tap((user) => {
+          this.loading?.dismiss();
+          if (user) {
+            void this.router.navigateByUrl(Paths.LANDING);
+          } else {
+            console.log('Please provide all the required values!');
+          }
+        }),
+      )
+      .subscribe();
   }
 
   get errorControl() {
@@ -82,26 +117,6 @@ export class LoginPage{
   }
 
   async login() {
-    const loading = await this.loadingCtrl.create();
-    await loading.present();
-    // console.log(this.email + this.password);
-    if (this.loginForm.valid) {
-
-      const user = await this.authService
-        .logginUser(this.loginForm.value.email, this.loginForm.value.password)
-        .catch((err) => {
-          console.log(err);
-          loading.dismiss();
-        });
-        //To set the userName
-        //this.authService.setUserName(this.loginForm.value.email.substring(0,4));
-        //------------------------------------
-      if (user) {
-        loading.dismiss();
-        void this.router.navigateByUrl(Paths.LANDING);
-      } else {
-        return console.log('Please provide all the required values!');
-      }
-    }
+    this.onLogin$.next();
   }
 }

@@ -1,33 +1,17 @@
-
 <ion-content [fullscreen]="true">
   <header>
     <h1 class="title">TÍTULO PENDIENTE</h1>
     <div class="logSign">
-      @if (thename ) {
-        <h2> {{ thename}}</h2>
-      }
-      <!--@else {-->
+      @if (userName() && userName() != '') {
+        <h2> {{ userName() }}</h2>
+      } @else {
         <button [routerLink]="['/login']">Log In</button>
         <button [routerLink]="['/signup']">Sign Up</button>
-      <!--} -->
+      }
     </div>
   </header>
   <div class="container">
   </div>
   <app-nav-bar class="navBar"></app-nav-bar>
-
   <router-outlet></router-outlet>
-
-  <!--<ion-img class="image" src="assets/icon/home_logo.jpg" style="width:25%"/>
-  <ion-title> Explore the TUTUTUTU TUTTUTUTUUU</ion-title>
-  <ion-fab vertical="bottom" horizontal="end" style="margin-bottom: 30px;">
-    <ion-fab-button [routerLink]="['/login']">
-      <ion-icon name="add-circle">
-
-      </ion-icon>
-    </ion-fab-button>
-  </ion-fab>
-  <ion-button>
-    Get started
-  </ion-button>-->
 </ion-content>

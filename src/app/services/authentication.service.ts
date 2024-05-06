@@ -1,68 +1,52 @@
-import { Injectable} from '@angular/core';
-import firebase from 'firebase/compat/app';
+import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import {
-   CollectionReference,
-   DocumentData,
-   addDoc,
-   collection,
-   deleteDoc,
-   doc,
-   updateDoc,
- } from '@firebase/firestore';
- import { Firestore, collectionData, docData } from '@angular/fire/firestore';
-import { Observable, of } from 'rxjs';
+import { Subject } from 'rxjs';
 import { User, UserCredential } from '@angular/fire/auth';
+import { FirebaseApp } from '@angular/fire/compat';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-   user : User;
-   getUser() : Observable<User>{
-      const userT = of(this.user)
-      return userT;
-   }
+  private readonly user = new Subject<User>();
+  readonly loggedUser = this.user.asObservable();
 
+  constructor(private ngFireAuth: AngularFireAuth) {}
 
-
-  constructor(public ngFireAuth: AngularFireAuth) { 
-   }
-
-   async registerUser(email: string, password: string){
-      return await this.ngFireAuth.createUserWithEmailAndPassword(email, password);
-   }
-
-   async logginUser(email: string, password: string){
-      this.user = (await this.ngFireAuth.signInWithEmailAndPassword(email,password)).user;
-      return await this.ngFireAuth.signInWithEmailAndPassword(email, password);
-   }
-
+  async registerUser(email: string, password: string) {
+    return await this.ngFireAuth.createUserWithEmailAndPassword(
+      email,
+      password,
+    )
+    
+  }
   
+  /*async addNameToProfile( ,fullname: string){
+    await  .updateProfile({
+        displayName: fullname
+      }).catch(function(error){
+        console.log(error)
+      })
+    })
+  }*/
 
-   async resetPassword(email : string){
-      return await this.ngFireAuth.sendPasswordResetEmail(email);
-   }
+  async loginUser(email: string, password: string): Promise<void> {
+    const user = await this.ngFireAuth.signInWithEmailAndPassword(
+      email,
+      password,
+    );
+    if (user) {
+      this.user.next(user.user);
+    }
+  }
 
-   async signOut(){
-      return await this.ngFireAuth.signOut();
-   }
+  async resetPassword(email: string) {
+    return await this.ngFireAuth.sendPasswordResetEmail(email);
+  }
 
-   async getProfile(){
-      return await this.ngFireAuth.currentUser;
-   }
+  async signOut() {
+    return await this.ngFireAuth.signOut();
+  }
 
-
-  /* setUserName(userName){
-      this.userName = userName;
-      console.log(this.userName);
-   }
-   getUserName(){
-      console.log(this.userName);
-      return this.userName;
-      
-   }*/
-   
+  async getProfile() {
+    return await this.ngFireAuth.currentUser;
+  }
 }
-
-
