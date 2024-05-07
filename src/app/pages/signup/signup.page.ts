@@ -19,7 +19,6 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [IonicModule, CommonModule, HttpClientModule, FormsModule, ReactiveFormsModule, RouterModule, AngularFireModule, AngularFireAuthModule]
 })
 export class SignupPage implements OnInit {
-  profileUpdates;
   regForm : FormGroup; 
   constructor( public formBuilder : FormBuilder, public loadingCtrl: LoadingController, private authService : AuthenticationService, public router : Router) {
       
@@ -56,20 +55,21 @@ export class SignupPage implements OnInit {
     const loading = await this.loadingCtrl.create();
     await loading.present();
     if(this.regForm?.valid){
-      const user = await this.authService.registerUser(this.regForm.value.email, this.regForm.value.password ).catch((error)=> {
+      const user = await this.authService.registerUser(this.regForm.value.email, this.regForm.value.password).catch((error)=> {
+
         console.log(error);
         loading.dismiss()
       })
+      //REGISTER NAME
       
-
       if(user){
         //SET FULLNAME
        (await this.authService.getProfile()).updateProfile({
-          displayName: this.regForm.value.fullname
+        displayName: this.regForm.value.fullname
         }).catch(function(error){
-          console.log(error)
+        console.log(error)
         })
-        //
+      //
         loading.dismiss()
         this.router.navigate(['/landing'])
       }
