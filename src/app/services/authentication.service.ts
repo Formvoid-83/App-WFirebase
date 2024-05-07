@@ -18,6 +18,13 @@ export class AuthenticationService {
     )
     
   }
+
+   setLocalStorageUser() {
+    localStorage.setItem("currentUser", JSON.stringify(this.getProfile()));
+  }
+  getLocalStorageUser(): User{
+    return JSON.parse(localStorage.getItem("currentUser"))
+  }
   
   /*async addNameToProfile( ,fullname: string){
     await  .updateProfile({
