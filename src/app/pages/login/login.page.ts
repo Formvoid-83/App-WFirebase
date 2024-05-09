@@ -103,6 +103,9 @@ export class LoginPage {
         tap((user) => {
           this.loading?.dismiss();
           if (user) {
+            //Provbando el Token
+            console.log(authService.getToken(user));
+            //
             void this.router.navigateByUrl(Paths.LANDING);
           } else {
             console.log('Please provide all the required values!');
