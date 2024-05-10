@@ -2,30 +2,16 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Observable, Subject } from 'rxjs';
 import { User, UserCredential } from '@angular/fire/auth';
-import Base64 from 'crypto-js/enc-base64';
-import { FirebaseApp } from '@angular/fire/compat';
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { Preferences } from '@capacitor/preferences';
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
-export class AuthenticationService implements HttpInterceptor {
+export class AuthenticationService {
   private readonly user = new Subject<User>();
   readonly loggedUser = this.user.asObservable();
 
-  constructor(private ngFireAuth: AngularFireAuth, ) {}
-//-------------------------------------------------------------------------------------------------
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> 
-  {
-    let token = localStorage.getItem("access_token");
-    if (token) {
-      request = request.clone({
-        setHeaders: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-    }
-    return next.handle(request);
-  }
-//-----------------------------------------------------------------------------------------------------
+  constructor(private ngFireAuth: AngularFireAuth, private httpClient : HttpClient) {}
+
   async registerUser(email: string, password: string) {
     return await this.ngFireAuth.createUserWithEmailAndPassword(
       email,
@@ -34,29 +20,30 @@ export class AuthenticationService implements HttpInterceptor {
     
   }
 
-  setLocalStorageUser() {
-    localStorage.setItem("currentUser", JSON.stringify(this.getProfile()));
+  async setLocalStorageUser() {
+    //localStorage.setItem("currentUser", JSON.stringify(this.getProfile()));
+
+    await Preferences.set({
+      key: "currentUser",
+      value: JSON.stringify(this.getProfile())
+    });
   }
-  getLocalStorageUser(): User{
-    return JSON.parse(localStorage.getItem("currentUser"))
+  async getLocalStorageUser(): Promise<User>{
+    //return JSON.parse(localStorage.getItem("currentUser"))
+
+    const {value} = await Preferences.get({key: "currentUser"})
+    return JSON.parse(value);
   }
   getToken(user : User){
-    const payload ={
+    /*const payload ={
       user_name: user.displayName,
       user_email: user.email
-    }
+    }*/
+    const token= this.httpClient.get<any>(JSON.stringify(user));
+    const toke = 
     localStorage.setItem("access_token", JSON.stringify(user));
-    return JSON.stringify(user);
+    return token;
   }
-  
-  /*async addNameToProfile( ,fullname: string){
-    await  .updateProfile({
-        displayName: fullname
-      }).catch(function(error){
-        console.log(error)
-      })
-    })
-  }*/
 
   async loginUser(email: string, password: string): Promise<void> {
     const user = await this.ngFireAuth.signInWithEmailAndPassword(
@@ -79,4 +66,15 @@ export class AuthenticationService implements HttpInterceptor {
   async getProfile() {
     return await this.ngFireAuth.currentUser;
   }
+
+  //FOR THE INTERCEPTORS
+
+  createHeaders(){
+    return {
+      headers: new HttpHeaders({
+        'Authorization' : localStorage.getItem("access_token")
+      })
+    }
+  }
+  //---------------------------------------------------------------
 }
