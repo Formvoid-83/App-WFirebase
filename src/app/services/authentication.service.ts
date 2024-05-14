@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Observable, Subject } from 'rxjs';
+import * as jwt from 'jsonwebtoken';
 import { User, UserCredential } from '@angular/fire/auth';
 import { Preferences } from '@capacitor/preferences';
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpClient, HttpHeaders } from '@angular/common/http';
+import * as fs from "fs"
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
+  
   private readonly user = new Subject<User>();
   readonly loggedUser = this.user.asObservable();
 
@@ -39,10 +42,19 @@ export class AuthenticationService {
       user_name: user.displayName,
       user_email: user.email
     }*/
+    //const userId = findUserIdForEmail(user.email);
+
+    //const fs = require('fs');
+    const RSA_PRIVATE_KEY = fs.readFileSync('./demos/private.key');
+    const jwtBearerToken = jwt.sign({}, RSA_PRIVATE_KEY, {
+      algorithm: 'RS256',
+      expiresIn: 120,
+      subject: user.email
+      })
     const token= this.httpClient.get<any>(JSON.stringify(user));
-    const toke = 
-    localStorage.setItem("access_token", JSON.stringify(user));
-    return token;
+    //const toke = t ;
+    localStorage.setItem("access_token", jwtBearerToken);
+    return jwtBearerToken;
   }
 
   async loginUser(email: string, password: string): Promise<void> {
