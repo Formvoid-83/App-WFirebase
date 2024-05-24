@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import { personOutline } from 'ionicons/icons';
+import { AuthenticationService } from '../services/authentication.service';
 
 
 @Component({
@@ -17,9 +18,18 @@ import { personOutline } from 'ionicons/icons';
 })
 export class NavBarComponent {
 
-  constructor() {
+  constructor(private authService: AuthenticationService, public router : Router) {
     addIcons({personOutline});
    }
 
+   canActivate(tab : string){
+    if(this.authService.isAuthenticated()){
+      this.router.navigate([`/${tab}`])
+      //console.log(`/${tab}`);
+    }
+    else{
+      this.router.navigate(['/login']);
+    }
+   }
 
 }

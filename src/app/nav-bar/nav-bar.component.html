@@ -33,9 +33,9 @@
       <div class="row">
         <ul>
           <li>Home</li>
-          <li class="subdiv">Options</li>
-          <li class="subdiv" [routerLink]="['/sell']">Sell</li>
-          <li>Requests</li>
+          <li class="subdiv" (click)="canActivate('Options')">Options</li>
+          <li class="subdiv" (click)="canActivate('sell')">Sell</li>
+          <li (click)="canActivate('requests')">Requests </li>
           <!--<<li>
             <div class="profile">
               <ion-button class="ion-page"   slot="start" id="profile-menu" size="large" >

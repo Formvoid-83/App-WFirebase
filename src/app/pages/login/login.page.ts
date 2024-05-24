@@ -103,8 +103,8 @@ export class LoginPage {
         tap((user) => {
           this.loading?.dismiss();
           if (user) {
-            //Provbando el Token
-            console.log(authService.getToken(user));
+            //Provbando el Auth
+            authService.setAuth();
             //
             void this.router.navigateByUrl(Paths.LANDING);
           } else {

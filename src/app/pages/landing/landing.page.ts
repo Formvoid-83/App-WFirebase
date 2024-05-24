@@ -33,14 +33,22 @@ export class LandingPage {
   private readonly user = toSignal<User>(this.authService.loggedUser);
   protected readonly userName = computed(() => {
     const user = this.user();
-    /*if(user){
-      console.log("Nombre es: " + user.displayName);
-    }*/
-    
+    //console.log(user);
+    let user2;
+    this.authService.getLocalStorageUserName().then(thename => {
+      console.log("No manches debe salir: " + thename);
+      return thename;
+    });
     return user ? user.displayName: '';
+   
   });
 
   constructor(private authService: AuthenticationService) {
     addIcons({ addCircle });
   }
+
+   /*planB(){
+    const val = this.authService.getLocalStorageUserName();
+    return val;
+  }*/
 }
