@@ -1,8 +1,9 @@
 <ion-content [fullscreen]="true">
   <header>
     <h1 class="title">TÍTULO PENDIENTE</h1>
+    {{userPreference()}}
     <div class="logSign">
-      @if (userName() && userName() != '') {
+      @if (userName() && userName() !== '') {
         <h2> {{ userName() }}</h2>
       } @else {
         <button [routerLink]="['/login']">Log In</button>

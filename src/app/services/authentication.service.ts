@@ -1,19 +1,21 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { Observable, Subject } from 'rxjs';
-import { User, UserCredential } from '@angular/fire/auth';
+import { BehaviorSubject, ReplaySubject } from 'rxjs';
+import { User } from '@angular/fire/auth';
 import { Preferences } from '@capacitor/preferences';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-  private readonly user = new Subject<User>();
+  private readonly user = new ReplaySubject<any>(null);
   readonly loggedUser = this.user.asObservable();
 
   constructor(
     private ngFireAuth: AngularFireAuth,
     private httpClient: HttpClient,
-  ) {}
+  ) {
+    this.user.next({ displayName: 'Guille', email: 'guille@mail.com' });
+  }
 
   async registerUser(email: string, password: string) {
     return await this.ngFireAuth.createUserWithEmailAndPassword(
@@ -23,19 +25,17 @@ export class AuthenticationService {
   }
 
   async setLocalStorageUser() {
-    //localStorage.setItem("currentUser", JSON.stringify(this.getProfile()));
-
     await Preferences.set({
-      key: 'currentUser',
-      value: JSON.stringify(this.getProfile()),
+      key: STORAGE_KEYS.USER,
+      value: JSON.stringify({ id: 123, displayName: 'Guille' }),
     });
   }
-  async getLocalStorageUser(): Promise<User> {
-    //return JSON.parse(localStorage.getItem("currentUser"))
 
-    const { value } = await Preferences.get({ key: 'currentUser' });
+  async getLocalStorageUser(): Promise<User> {
+    const { value } = await Preferences.get({ key: STORAGE_KEYS.USER });
     return JSON.parse(value);
   }
+
   getToken(user: User) {
     const token = this.httpClient.get<any>(JSON.stringify(user));
     localStorage.setItem('access_token', '');
@@ -74,4 +74,8 @@ export class AuthenticationService {
     };
   }
   //---------------------------------------------------------------
+}
+
+export enum STORAGE_KEYS {
+  USER = 'USER',
 }

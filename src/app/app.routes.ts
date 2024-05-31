@@ -28,7 +28,8 @@ export const routes: Routes = [
   },
   {
     path: 'landing',
-    loadComponent: () => import('./pages/landing/landing.page').then( m => m.LandingPage)
+    loadComponent: () => import('./pages/landing/landing.page').then( m => m.LandingPage),
+    canActivate: [ONLY IF AUTH If not redirect to login]
   },
   {
     path: 'sell',
