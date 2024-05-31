@@ -34,3 +34,11 @@ export const appConfig: ApplicationConfig = {
     UserTrackingService,
   ],
 };*/
+
+import { ApplicationConfig } from '@angular/core';
+import { AuthenticationService } from './services/authentication.service';
+import { provideHttpClient } from '@angular/common/http';
+
+export const appConfig: ApplicationConfig = {
+  providers: [provideHttpClient()],
+};
