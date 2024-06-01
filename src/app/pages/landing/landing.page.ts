@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, computed } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  OnInit,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
@@ -11,6 +16,8 @@ import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { User, UserCredential } from '@angular/fire/auth';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { derivedAsync } from 'ngxtension/derived-async';
+import { catchError, from, map, of } from 'rxjs';
 
 @Component({
   selector: 'app-landing',
@@ -26,29 +33,40 @@ import { toSignal } from '@angular/core/rxjs-interop';
     FormsModule,
     RouterModule,
     NavBarComponent,
-    
   ],
 })
-export class LandingPage {
+export class LandingPage implements OnInit {
+  private userDisplayName = 'No user name';
+  public pal;
+  public browserRefresh: boolean;
+
   private readonly user = toSignal<User>(this.authService.loggedUser);
   protected readonly userName = computed(() => {
     const user = this.user();
-    //console.log(user);
-    let user2;
-    this.authService.getLocalStorageUserName().then(thename => {
-      console.log("No manches debe salir: " + thename);
-      return thename;
-    });
+ 
     return user ? user.displayName: '';
-   
   });
+
+  userPreference = derivedAsync(
+    () => {
+      return from(this.authService.getLocalStorageUser()).pipe(
+        //map((value) => value?.displayName ?? 'Haha'),
+        map((value) => value?.displayName ?? ''),
+        catchError(() => of('Error')),
+      );
+    },
+    { initialValue: '' },
+  );
 
   constructor(private authService: AuthenticationService) {
     addIcons({ addCircle });
   }
-
-   /*planB(){
-    const val = this.authService.getLocalStorageUserName();
-    return val;
-  }*/
+  async ngOnInit() {
+    // await this.authService.setLocalStorageUser();
+    const user = await this.authService.getLocalStorageUser();
+    console.log(user);
+  }
+  
 }
+
+

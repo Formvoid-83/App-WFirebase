@@ -46,6 +46,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   ],
 })
 export class LoginPage {
+  
   #formBuilder = inject(FormBuilder);
   private loading;
 
@@ -105,8 +106,9 @@ export class LoginPage {
           if (user) {
             //Provbando el Auth
             authService.setAuth();
+            this.authService.setLocalStorageUser(user);
             //
-            void this.router.navigateByUrl(Paths.LANDING);
+            
           } else {
             console.log('Please provide all the required values!');
           }
@@ -115,11 +117,14 @@ export class LoginPage {
       .subscribe();
   }
 
+
+
   get errorControl() {
     return this.loginForm?.controls;
   }
 
   async login() {
     this.onLogin$.next();
+    void this.router.navigateByUrl(Paths.LANDING);
   }
 }
