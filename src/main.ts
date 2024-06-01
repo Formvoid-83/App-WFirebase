@@ -13,6 +13,8 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { IonicModule } from '@ionic/angular';
 import { FIREBASE_OPTIONS } from '@angular/fire/compat';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptors } from '@angular/common/http';
+import { AuthInterceptor } from './app/interceptors/auth.interceptor';
 
 if (environment.production) {
   enableProdMode();
@@ -21,6 +23,7 @@ if (environment.production) {
 bootstrapApplication(AppComponent, {
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true},
     {provide: FIREBASE_OPTIONS,useValue: environment.firebase},
     importProvidersFrom(IonicModule.forRoot()),
     provideRouter(routes),
@@ -28,6 +31,8 @@ bootstrapApplication(AppComponent, {
     importProvidersFrom(provideAnalytics(() => getAnalytics())),
     importProvidersFrom(provideAuth(() => getAuth())),
     importProvidersFrom(provideFirestore(() => getFirestore())),
+    //Interceptors
+    provideHttpClient(),
     ScreenTrackingService,
     UserTrackingService,
   ],
