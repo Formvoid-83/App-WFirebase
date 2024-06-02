@@ -23,6 +23,14 @@ h2{
     margin-right: auto;
     width: 50%;
 }
+.row {
+  display: flex;
+}
+
+.column {
+  margin-right: 2rem;
+  flex: 50%;
+}
 .logSign{
     position: absolute;
     right: 8rem;

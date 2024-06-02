@@ -30,12 +30,14 @@ export class AuthenticationService {
       key: STORAGE_KEYS.USER,
       value: JSON.stringify(theuser),
     });
-  }
+    //this.user.next({displayName: theuser.displayName, email: theuser.email})
+    console.log("datos guardados como: " + theuser.displayName + " y " + theuser.email)
+  
+    }
 
   async getLocalStorageUser(): Promise<User> {
     const { value } = await Preferences.get({ key: STORAGE_KEYS.USER });
     console.log("I'm getting the localStorage user: " + value)
-    this.user.next(value ?? null)
     return JSON.parse(value);
   }
 
@@ -60,7 +62,10 @@ export class AuthenticationService {
   }
 
   async signOut() {
-    return await this.ngFireAuth.signOut();
+    await Preferences.clear();
+    await this.ngFireAuth.signOut();
+    console.log("Preferencias LIMPIADAS");
+    window.location.reload();
   }
 
   async getProfile() {

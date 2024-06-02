@@ -36,8 +36,6 @@ import { catchError, from, map, of } from 'rxjs';
   ],
 })
 export class LandingPage implements OnInit {
-  private userDisplayName = 'No user name';
-  public pal;
   public browserRefresh: boolean;
 
   private readonly user = toSignal<User>(this.authService.loggedUser);
@@ -50,8 +48,8 @@ export class LandingPage implements OnInit {
   userPreference = derivedAsync(
     () => {
       return from(this.authService.getLocalStorageUser()).pipe(
-        //map((value) => value?.displayName ?? 'Haha'),
         map((value) => value?.displayName ?? ''),
+        //map((value) => value?.displayName ?? ''),
         catchError(() => of('Error')),
       );
     },
@@ -60,6 +58,9 @@ export class LandingPage implements OnInit {
 
   constructor(private authService: AuthenticationService) {
     addIcons({ addCircle });
+  }
+  logOut(){
+    this.authService.signOut();
   }
   async ngOnInit() {
     // await this.authService.setLocalStorageUser();

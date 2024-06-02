@@ -74,6 +74,7 @@ export class LoginPage {
     tap(async () => {
       this.loading = await this.loadingCtrl.create();
       await this.loading?.present();
+      console.log("LEEGASTE HASTA QUÍ");
     }),
     switchMap(() =>
       from(
@@ -101,12 +102,13 @@ export class LoginPage {
     this.authService.loggedUser
       .pipe(
         takeUntilDestroyed(),
-        tap((user) => {
+        tap(async (user) => {
           this.loading?.dismiss();
           if (user) {
             //Provbando el Auth
             authService.setAuth();
-            this.authService.setLocalStorageUser(user);
+            await this.authService.setLocalStorageUser(user);
+            void this.router.navigateByUrl(Paths.LANDING);
             //
             
           } else {
@@ -125,6 +127,7 @@ export class LoginPage {
 
   async login() {
     this.onLogin$.next();
-    void this.router.navigateByUrl(Paths.LANDING);
+    
   }
+
 }
