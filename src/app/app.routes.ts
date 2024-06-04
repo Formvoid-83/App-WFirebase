@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { PermissionsGuard } from './guards/permissions.guard';
 
 export const routes: Routes = [
   {
@@ -28,12 +29,15 @@ export const routes: Routes = [
   },
   {
     path: 'landing',
-    loadComponent: () => import('./pages/landing/landing.page').then( m => m.LandingPage)
+    loadComponent: () => import('./pages/landing/landing.page').then( m => m.LandingPage),
+    //canActivate: [ONLY IF AUTH If not redirect to login]
   },
   {
     path: 'sell',
-    loadComponent: () => import('./components/selling-page/selling-page.component').then( m => m.SellingPageComponent)
-  },  {
+    loadComponent: () => import('./components/selling-page/selling-page.component').then( m => m.SellingPageComponent),
+    canActivate: [PermissionsGuard]
+  },
+  {
     path: 'sell',
     loadComponent: () => import('./pages/sell/sell.page').then( m => m.SellPage)
   },

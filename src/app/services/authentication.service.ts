@@ -65,6 +65,7 @@ export class AuthenticationService {
     await Preferences.clear();
     await this.ngFireAuth.signOut();
     console.log("Preferencias LIMPIADAS");
+    this.islogged = false;
     window.location.reload();
   }
 

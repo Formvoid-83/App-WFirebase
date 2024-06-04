@@ -109,6 +109,7 @@ export class LoginPage {
             authService.setAuth();
             await this.authService.setLocalStorageUser(user);
             void this.router.navigateByUrl(Paths.LANDING);
+            //window.location.reload();
             //
             
           } else {
