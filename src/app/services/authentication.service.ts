@@ -4,6 +4,7 @@ import { BehaviorSubject, ReplaySubject } from 'rxjs';
 import { User } from '@angular/fire/auth';
 import { Preferences } from '@capacitor/preferences';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { STORAGE_KEYS } from '../pages/storageKeys';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -89,8 +90,4 @@ export class AuthenticationService {
     };
   }
   //---------------------------------------------------------------
-}
-
-export enum STORAGE_KEYS {
-  USER = 'currentUser',
 }
