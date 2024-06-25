@@ -32,7 +32,7 @@ export class AuthenticationService {
       value: JSON.stringify(theuser),
     });
     //this.user.next({displayName: theuser.displayName, email: theuser.email})
-    console.log("datos guardados como: " + theuser.displayName + " y " + theuser.email)
+    console.log("datos guardados como: " + theuser.displayName + " y " + theuser.email )
   
     }
 
