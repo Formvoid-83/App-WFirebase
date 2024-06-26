@@ -8,7 +8,7 @@
   <form [formGroup]="loginForm">
     <div class="ion-padding">
       <ion-item>
-        <ion-input placeholder="Email" class="input" formControlName="email"></ion-input>
+        <input placeholder="Email" class="input" formControlName="email">
         <ion-icon  name="person-outline"></ion-icon>
       </ion-item>
       @if (this.loginForm.controls?.['email'].touched && this.loginForm.controls?.['email'].invalid) {
@@ -27,7 +27,7 @@
       }
      
       <ion-item>
-        <ion-input placeholder="password" class="input" formControlName="password"></ion-input>
+        <input placeholder="password" class="input" formControlName="password">
         <ion-icon name="lock-closed-outline"></ion-icon>
       </ion-item>
       @if (this.loginForm.controls?.['password'].touched && this.loginForm.controls?.['password'].invalid) {

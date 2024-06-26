@@ -2,10 +2,12 @@
     padding-top: 5rem;
 }
 .input{
-    font-size: 300;
+    height:2rem;
+    font-size: 100;
     display:inline-block;
     margin-right:2rem;
-    padding-bottom: 2rem;
+    border-radius: 0.5rem;
+    //padding-bottom: 2rem;
 }
 
 ion-item{
@@ -89,6 +91,7 @@ button{
 .forgotPassword{
     display: flex;
     justify-content:center;
+    padding-top: 3rem;
     padding-bottom: 2rem;
     a{
         color:#FFC33F;
