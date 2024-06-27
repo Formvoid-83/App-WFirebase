@@ -8,7 +8,7 @@
   <form [formGroup]="regForm">
     <div class="ion-padding">
       <ion-item>
-        <ion-input formControlName="fullname" class="input" placeholder="Name"></ion-input>
+        <input formControlName="fullname" class="input" placeholder="Name">
         <ion-icon  class="icon" name="person-outline"></ion-icon>
       </ion-item>
       @if (this.regForm?.controls?.['fullname'].touched && this.regForm?.controls?.['fullname'].invalid) {
@@ -23,7 +23,7 @@
       
 
       <ion-item>
-        <ion-input class="input" formControlName="email" placeholder="email"></ion-input>
+        <input class="input" formControlName="email" placeholder="email">
         <ion-icon class="icon"  name="person-outline"></ion-icon>
       </ion-item>
       @if (this.regForm?.controls?.['email'].touched && this.regForm?.controls?.['email'].invalid) {
@@ -42,7 +42,7 @@
       }
       
       <ion-item>
-        <ion-input class="input" formControlName="password" placeholder="password"></ion-input>
+        <input class="input" formControlName="password" placeholder="password">
         <ion-icon class="icon" name="lock-closed-outline"></ion-icon>
       </ion-item>
       @if (this.regForm?.controls?.['password'].touched && this.regForm?.controls?.['password'].invalid) {
